@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objs/bad guy.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 64 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 512, 256 )
+
+[node name="bad guy" type="KinematicBody2D"]
+collision_layer = 4
+script = ExtResource( 1 )
+canAlwaysSee = "always"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -32.0
+margin_top = -64.0
+margin_right = 32.0
+margin_bottom = 64.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="eye" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, -64 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="eye"]
+position = Vector2( 480, -128 )
+shape = SubResource( 2 )
+
+[node name="outofrange" type="Timer" parent="."]
+one_shot = true
+
+[node name="jumpcasts" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, -64 )
+
+[node name="jumpcast" type="RayCast2D" parent="jumpcasts"]
+position = Vector2( 35, 118 )
+enabled = true
+cast_to = Vector2( 64, 0 )
+
+[node name="jumpmax" type="RayCast2D" parent="jumpcasts"]
+position = Vector2( 35, 0 )
+enabled = true
+cast_to = Vector2( 64, 0 )
+
+[node name="sight" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 0 )
+collision_mask = 3
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+position = Vector2( 2.67029e-005, -1.52588e-005 )
+scale = Vector2( 47.7479, 37.7154 )
+
+[node name="idletimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="outofrange" to="." method="_on_outofrange_timeout"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="idletimer" to="." method="_on_idletimer_timeout"]
