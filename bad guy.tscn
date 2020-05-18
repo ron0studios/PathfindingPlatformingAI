@@ -18,12 +18,14 @@ margin_left = -32.0
 margin_top = -64.0
 margin_right = 32.0
 margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="eye" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="eye"]
@@ -34,7 +36,6 @@ shape = SubResource( 2 )
 one_shot = true
 
 [node name="jumpcasts" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -64 )
 
 [node name="jumpcast" type="RayCast2D" parent="jumpcasts"]
@@ -54,11 +55,16 @@ collision_mask = 3
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
-position = Vector2( 2.67029e-005, -1.52588e-005 )
+position = Vector2( 2.67029e-05, -1.52588e-05 )
 scale = Vector2( 47.7479, 37.7154 )
 
 [node name="idletimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Sprite" type="Sprite" parent="."]
+__meta__ = {
+"_editor_description_": ""
+}
 [connection signal="timeout" from="outofrange" to="." method="_on_outofrange_timeout"]
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
